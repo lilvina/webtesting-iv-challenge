@@ -11,4 +11,24 @@ server.get('/', (req, res) => {
   })
 })
 
+server.post('/', (req, res) => {
+  db('anime').insert(req.body)
+  .then(response => {
+    res.status(201).json(response)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
+server.delete('/', (req, res) => {
+
+  db('anime').where(req.body)
+  .delete()
+  .then(response => {
+    res.status(200).json(response)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
 module.exports = server;
